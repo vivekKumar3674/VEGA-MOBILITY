@@ -17,10 +17,11 @@ const stats = [
   { value: '4.2x', label: 'Surge pricing spike at peak hours' },
 ];
 
+const words = ['Every Journey.', 'Every City.', 'Every Commuter.'];
+
 function Landing() {
   const [count, setCount] = useState(0);
   const [hoveredModule, setHoveredModule] = useState(null);
-  const words = ['Every Journey.', 'Every City.', 'Every Commuter.'];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -279,7 +280,7 @@ function Landing() {
               onMouseLeave={() => setHoveredModule(null)}
               style={{
                 padding: '40px',
-                background: hoveredModule === i ? `rgba(255,255,255,0.04)` : 'transparent',
+                background: hoveredModule === i ? 'rgba(255,255,255,0.04)' : 'transparent',
                 borderRight: i % 2 === 0 ? '1px solid rgba(255,255,255,0.06)' : 'none',
                 borderBottom: i < 4 ? '1px solid rgba(255,255,255,0.06)' : 'none',
                 cursor: 'pointer',
@@ -290,7 +291,6 @@ function Landing() {
                 overflow: 'hidden',
               }}>
 
-              {/* Hover glow */}
               {hoveredModule === i && (
                 <div style={{
                   position: 'absolute',
