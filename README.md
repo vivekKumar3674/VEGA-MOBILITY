@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# VEGA — Urban Mobility Super App
+> One App. Every Journey. Every Indian City.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[
 
-## Available Scripts
+![Live Demo](https://img.shields.io/badge/Live-Demo-1a9e7a)
 
-In the project directory, you can run:
+](https://vega-mobility-psi.vercel.app)
 
-### `npm start`
+## 🏆 OneJourney Mobility Hackathon 2026
+**Team Craazco** | Track: Open Innovation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 👥 Team Members
+| Name | Role |
+|------|------|
+| Vivek Kumar | Team Lead & AI/ML Engineer |
+| M Ankit | Mobile & Backend Developer |
+| Nikhil Ranjan Sahoo | Full Stack & Safety Engineer |
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🚀 What is VEGA?
+India's cities have 12 disconnected transport apps. VEGA unifies them into ONE intelligent mobility platform serving 10 million+ commuters across Chennai, Bengaluru, and Hyderabad.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 📊 The Problem
+- **₹1.5L Cr** annual economic loss from congestion
+- **68 min** average daily commute in metro cities
+- **23%** women avoid late-night transit due to safety
+- **4.2x** surge pricing spike during peak hours
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🧩 6 Modules
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+| Module | Description |
+|--------|-------------|
+| 🗺️ **SmartRoute AI** | Multi-modal journey planner across Metro, Bus, Train & Auto |
+| 🛡️ **SheSafe Shield** | SOS alerts, safe routes, live location sharing for women |
+| 🌿 **GreenScore** | CO₂ tracking per trip + rewards for green commuting |
+| 💰 **FairFare Engine** | Government-rate pricing, no surge, overcharge reporting |
+| 📡 **LiveTransit Hub** | Real-time bus, metro, train tracking in one dashboard |
+| 📊 **DriverPulse** | Driver earnings, dispute board, incentive tracker |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🛠️ Tech Stack
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Frontend:** React.js, Framer Motion, Leaflet.js
+**Backend:** Node.js + Express
+**Database:** Firebase Realtime DB + MongoDB Atlas
+**AI/ML:** Python + FastAPI, scikit-learn, spaCy
+**Hosting:** Vercel
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🏃 Run Locally
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+git clone https://github.com/vivekKumar3674/VEGA-MOBILITY.git
+cd VEGA-MOBILITY
+npm install
+npm start
