@@ -19,7 +19,6 @@ export { getAutoTheme };
 
 function Navbar({ theme, setTheme }) {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
