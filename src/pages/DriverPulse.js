@@ -11,9 +11,9 @@ const earnings = [
 ];
 
 const disputes = [
-  { id: '#D-2041', issue: 'Passenger cancelled after boarding', amount: '₹80', status: 'Resolved', date: '12 Jun' },
-  { id: '#D-2038', issue: 'App showed wrong fare', amount: '₹45', status: 'Pending', date: '10 Jun' },
-  { id: '#D-2031', issue: 'Route deviation penalty', amount: '₹120', status: 'Under Review', date: '8 Jun' },
+  { id: '#D-2041', issue: 'Passenger cancelled after boarding at Koyambedu Bus Stand', amount: '₹80', status: 'Resolved', date: '12 Jun' },
+  { id: '#D-2038', issue: 'App showed wrong fare for T. Nagar to Guindy route', amount: '₹45', status: 'Pending', date: '10 Jun' },
+  { id: '#D-2031', issue: 'Unfair route deviation penalty near Kathipara Junction', amount: '₹120', status: 'Under Review', date: '8 Jun' },
 ];
 
 const maxEarning = Math.max(...earnings.map(e => e.amount));
@@ -33,15 +33,29 @@ function DriverPulse() {
       <div style={{ maxWidth: '860px', margin: '0 auto', padding: '40px 24px', position: 'relative', zIndex: 1 }}>
         <p style={{ color: '#c084fc', letterSpacing: '4px', fontSize: '11px', marginBottom: '12px' }}>MODULE 06</p>
         <h1 style={{ fontSize: 'clamp(36px, 6vw, 60px)', fontWeight: '900', marginBottom: '16px', background: 'linear-gradient(135deg, #fff, #c084fc)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>DriverPulse</h1>
-        <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '16px', lineHeight: '1.7', marginBottom: '48px' }}>Full earnings transparency, dispute resolution and incentive tracking.</p>
+        <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '16px', lineHeight: '1.7', marginBottom: '48px' }}>
+          Full earnings transparency for Chennai auto & cab drivers — disputes, daily summary & incentives.
+        </p>
 
-        {/* Cards */}
+        {/* Driver Profile */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '20px 24px', background: 'rgba(192,132,252,0.06)', border: '1px solid rgba(192,132,252,0.2)', borderRadius: '18px', marginBottom: '32px' }}>
+          <div style={{ width: '52px', height: '52px', borderRadius: '50%', background: 'linear-gradient(135deg, #c084fc, #9333ea)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px', fontWeight: '900', color: '#fff', flexShrink: 0 }}>R</div>
+          <div>
+            <p style={{ fontWeight: '800', fontSize: '16px' }}>Rajan Kumar</p>
+            <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px' }}>Auto Driver · Chennai · ID: CHN-4821</p>
+          </div>
+          <div style={{ marginLeft: 'auto', textAlign: 'right' }}>
+            <div style={{ fontSize: '20px', fontWeight: '900', color: '#fbbf24' }}>4.8 ⭐</div>
+            <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.3)' }}>Rating</div>
+          </div>
+        </div>
+
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px', marginBottom: '40px' }}>
           {[
             { label: 'This Week', value: `₹${totalWeek.toLocaleString()}`, color: '#c084fc' },
             { label: 'Total Trips', value: totalTrips, color: '#60a5fa' },
             { label: 'Avg per Trip', value: `₹${Math.round(totalWeek / totalTrips)}`, color: '#4ade80' },
-            { label: 'Rating', value: '4.8 ⭐', color: '#fbbf24' },
+            { label: 'Today', value: '₹640', color: '#fbbf24' },
           ].map((card, i) => (
             <div key={i} style={{ padding: '28px', background: 'rgba(255,255,255,0.02)', border: `1px solid ${card.color}20`, borderRadius: '20px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
               <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: `linear-gradient(90deg, transparent, ${card.color}, transparent)` }} />
@@ -51,7 +65,6 @@ function DriverPulse() {
           ))}
         </div>
 
-        {/* Chart */}
         <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(192,132,252,0.12)', borderRadius: '24px', padding: '28px', marginBottom: '32px' }}>
           <h2 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '28px' }}>Weekly Earnings</h2>
           <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-end', height: '160px' }}>
@@ -65,7 +78,6 @@ function DriverPulse() {
           </div>
         </div>
 
-        {/* Disputes */}
         <h2 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '16px' }}>Dispute Board</h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px' }}>
           {disputes.map((d, i) => (
@@ -85,21 +97,19 @@ function DriverPulse() {
           ))}
         </div>
 
-        {/* New Dispute */}
         <div style={{ padding: '24px', background: 'rgba(192,132,252,0.04)', border: '1px solid rgba(192,132,252,0.15)', borderRadius: '20px', marginBottom: '32px' }}>
           <p style={{ fontSize: '15px', fontWeight: '700', marginBottom: '14px' }}>File New Dispute</p>
-          <textarea value={newDispute} onChange={e => setNewDispute(e.target.value)} placeholder="Describe your issue..." style={{ width: '100%', padding: '14px 16px', minHeight: '80px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(192,132,252,0.15)', borderRadius: '12px', color: '#fff', fontSize: '14px', outline: 'none', resize: 'vertical', fontFamily: 'inherit' }} />
+          <textarea value={newDispute} onChange={e => setNewDispute(e.target.value)} placeholder="Describe your issue — e.g. wrong fare deducted at Koyambedu..." style={{ width: '100%', padding: '14px 16px', minHeight: '80px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(192,132,252,0.15)', borderRadius: '12px', color: '#fff', fontSize: '14px', outline: 'none', resize: 'vertical', fontFamily: 'inherit' }} />
           <button onClick={() => { if (newDispute) setSubmitted(true); }} style={{ marginTop: '12px', padding: '11px 28px', background: submitted ? 'rgba(74,222,128,0.2)' : 'rgba(192,132,252,0.15)', border: `1px solid ${submitted ? '#4ade80' : '#c084fc'}`, borderRadius: '10px', color: '#fff', fontWeight: '700', cursor: 'pointer', fontSize: '14px' }}>
-            {submitted ? '✅ Submitted!' : 'Submit Dispute'}
+            {submitted ? '✅ Submitted to VEGA Support!' : 'Submit Dispute'}
           </button>
         </div>
 
-        {/* Incentives */}
         <div style={{ padding: '28px', background: 'linear-gradient(135deg, rgba(192,132,252,0.08), rgba(96,165,250,0.05))', border: '1px solid rgba(192,132,252,0.2)', borderRadius: '24px' }}>
           <h2 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '20px' }}>🏆 This Week's Incentives</h2>
           {[
             { target: '25 trips in a day', reward: '₹200 bonus', progress: 88 },
-            { target: '4.9 rating for 7 days', reward: 'Gold Badge', progress: 96 },
+            { target: '4.9 rating for 7 days', reward: 'Gold Driver Badge', progress: 96 },
             { target: '100 trips this week', reward: '₹500 bonus', progress: 100 },
           ].map((inc, i) => (
             <div key={i} style={{ marginBottom: '20px' }}>

@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 
 const initialBuses = [
-  { id: 'MTC 21C', route: 'Guindy → Broadway', eta: 3, occupancy: 72, status: 'On Time' },
-  { id: 'MTC 5D', route: 'Anna Nagar → Central', eta: 7, occupancy: 45, status: 'On Time' },
+  { id: 'MTC 21C', route: 'Guindy → Parry\'s Corner', eta: 3, occupancy: 72, status: 'On Time' },
+  { id: 'MTC 5D', route: 'Koyambedu → Chennai Central', eta: 7, occupancy: 45, status: 'On Time' },
   { id: 'MTC 11B', route: 'Tambaram → Egmore', eta: 12, occupancy: 89, status: 'Delayed' },
-  { id: 'MTC 70', route: 'T Nagar → Airport', eta: 2, occupancy: 30, status: 'On Time' },
+  { id: 'MTC 70', route: 'T. Nagar → Chennai Airport', eta: 2, occupancy: 30, status: 'On Time' },
 ];
 
 const metroLines = [
-  { line: 'Blue Line', from: 'Airport', to: 'Wimco Nagar', nextTrain: 4, crowding: 'Low', color: '#60a5fa' },
-  { line: 'Green Line', from: 'Central', to: 'St Thomas Mount', nextTrain: 7, crowding: 'High', color: '#4ade80' },
+  { line: 'Blue Line', from: 'Chennai Airport', to: 'Wimco Nagar', nextTrain: 4, crowding: 'Low', color: '#60a5fa' },
+  { line: 'Green Line', from: 'Chennai Central', to: 'St. Thomas Mount', nextTrain: 7, crowding: 'High', color: '#4ade80' },
 ];
 
 const trains = [
-  { name: 'Chennai Central → Tambaram', platform: '3', departure: '21:45', status: 'On Time' },
-  { name: 'Chennai Beach → Velachery', platform: '1', departure: '21:52', status: 'Delayed 8 min' },
+  { name: 'Chennai Central → Tambaram Fast', platform: '3', departure: '21:45', status: 'On Time' },
+  { name: 'Chennai Beach → Velachery MRTS', platform: '1', departure: '21:52', status: 'Delayed 8 min' },
 ];
 
 function LiveTransit() {
@@ -35,9 +35,9 @@ function LiveTransit() {
   }, []);
 
   const tabs = [
-    { id: 'bus', label: '🚌 Bus', color: '#60a5fa' },
-    { id: 'metro', label: '🚇 Metro', color: '#4ade80' },
-    { id: 'train', label: '🚂 Train', color: '#c084fc' },
+    { id: 'bus', label: '🚌 MTC Bus', color: '#60a5fa' },
+    { id: 'metro', label: '🚇 Chennai Metro', color: '#4ade80' },
+    { id: 'train', label: '🚂 MRTS Train', color: '#c084fc' },
   ];
 
   return (
@@ -49,31 +49,22 @@ function LiveTransit() {
       <div style={{ maxWidth: '860px', margin: '0 auto', padding: '40px 24px', position: 'relative', zIndex: 1 }}>
         <p style={{ color: '#60a5fa', letterSpacing: '4px', fontSize: '11px', marginBottom: '12px' }}>MODULE 05</p>
         <h1 style={{ fontSize: 'clamp(36px, 6vw, 60px)', fontWeight: '900', marginBottom: '16px', background: 'linear-gradient(135deg, #fff, #60a5fa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>LiveTransit Hub</h1>
-        <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '16px', lineHeight: '1.7', marginBottom: '48px' }}>Unified real-time tracking for buses, metro and trains.</p>
+        <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '16px', lineHeight: '1.7', marginBottom: '48px' }}>
+          Real-time tracking for MTC buses, Chennai Metro & MRTS trains — all in one dashboard.
+        </p>
 
-        {/* Live indicator */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '28px' }}>
           <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4ade80', boxShadow: '0 0 10px #4ade80', animation: 'pulse 1.5s infinite' }} />
           <span style={{ color: '#4ade80', fontSize: '13px', fontWeight: '700' }}>LIVE</span>
           <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: '12px' }}>Updated {lastUpdated.toLocaleTimeString()}</span>
         </div>
 
-        {/* Tabs */}
         <div style={{ display: 'flex', gap: '8px', marginBottom: '28px' }}>
           {tabs.map(tab => (
-            <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
-              padding: '10px 24px',
-              background: activeTab === tab.id ? tab.color : 'rgba(255,255,255,0.04)',
-              border: `1px solid ${activeTab === tab.id ? tab.color : 'rgba(255,255,255,0.08)'}`,
-              borderRadius: '20px', color: activeTab === tab.id ? '#020a06' : 'rgba(255,255,255,0.5)',
-              fontWeight: '700', fontSize: '13px', cursor: 'pointer',
-              boxShadow: activeTab === tab.id ? `0 0 20px ${tab.color}40` : 'none',
-              transition: 'all 0.25s ease',
-            }}>{tab.label}</button>
+            <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{ padding: '10px 20px', background: activeTab === tab.id ? tab.color : 'rgba(255,255,255,0.04)', border: `1px solid ${activeTab === tab.id ? tab.color : 'rgba(255,255,255,0.08)'}`, borderRadius: '20px', color: activeTab === tab.id ? '#020a06' : 'rgba(255,255,255,0.5)', fontWeight: '700', fontSize: '13px', cursor: 'pointer', boxShadow: activeTab === tab.id ? `0 0 20px ${tab.color}40` : 'none', transition: 'all 0.25s ease' }}>{tab.label}</button>
           ))}
         </div>
 
-        {/* Bus */}
         {activeTab === 'bus' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {buses.map((bus, i) => (
@@ -105,7 +96,6 @@ function LiveTransit() {
           </div>
         )}
 
-        {/* Metro */}
         {activeTab === 'metro' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {metroLines.map((line, i) => (
@@ -124,7 +114,6 @@ function LiveTransit() {
           </div>
         )}
 
-        {/* Train */}
         {activeTab === 'train' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {trains.map((train, i) => (
