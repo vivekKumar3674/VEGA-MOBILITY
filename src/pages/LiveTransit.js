@@ -8,8 +8,8 @@ const initialBuses = [
 ];
 
 const metroLines = [
-  { line: 'Blue Line', from: 'Chennai Airport', to: 'Wimco Nagar', nextTrain: 4, crowding: 'Low', color: '#60a5fa' },
-  { line: 'Green Line', from: 'Chennai Central', to: 'St. Thomas Mount', nextTrain: 7, crowding: 'High', color: '#4ade80' },
+  { line: 'Blue Line', from: 'Chennai Airport', to: 'Wimco Nagar', nextTrain: 4, crowding: 'Low', color: '#2563eb' },
+  { line: 'Green Line', from: 'Chennai Central', to: 'St. Thomas Mount', nextTrain: 7, crowding: 'High', color: '#16a34a' },
 ];
 
 const trains = [
@@ -17,10 +17,11 @@ const trains = [
   { name: 'Chennai Beach → Velachery MRTS', platform: '1', departure: '21:52', status: 'Delayed 8 min' },
 ];
 
-function LiveTransit() {
+function LiveTransit({ theme }) {
   const [buses, setBuses] = useState(initialBuses);
   const [lastUpdated, setLastUpdated] = useState(new Date());
   const [activeTab, setActiveTab] = useState('bus');
+  const dark = theme === 'dark';
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -35,59 +36,58 @@ function LiveTransit() {
   }, []);
 
   const tabs = [
-    { id: 'bus', label: '🚌 MTC Bus', color: '#60a5fa' },
-    { id: 'metro', label: '🚇 Chennai Metro', color: '#4ade80' },
-    { id: 'train', label: '🚂 MRTS Train', color: '#c084fc' },
+    { id: 'bus', label: '🚌 MTC Bus', color: '#2563eb' },
+    { id: 'metro', label: '🚇 Metro', color: '#16a34a' },
+    { id: 'train', label: '🚂 MRTS', color: '#7c3aed' },
   ];
 
   return (
-    <div style={{ minHeight: '100vh', background: '#020a06', paddingTop: '100px' }}>
-      <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none' }}>
-        <div style={{ position: 'absolute', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(96,165,250,0.07) 0%, transparent 70%)', top: '10%', right: '0%', animation: 'flow 11s ease-in-out infinite', filter: 'blur(50px)' }} />
-      </div>
+    <div style={{ minHeight: '100vh', background: 'var(--bg)', paddingTop: '80px' }}>
+      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '40px 24px' }}>
 
-      <div style={{ maxWidth: '860px', margin: '0 auto', padding: '40px 24px', position: 'relative', zIndex: 1 }}>
-        <p style={{ color: '#60a5fa', letterSpacing: '4px', fontSize: '11px', marginBottom: '12px' }}>MODULE 05</p>
-        <h1 style={{ fontSize: 'clamp(36px, 6vw, 60px)', fontWeight: '900', marginBottom: '16px', background: 'linear-gradient(135deg, #fff, #60a5fa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>LiveTransit Hub</h1>
-        <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '16px', lineHeight: '1.7', marginBottom: '48px' }}>
-          Real-time tracking for MTC buses, Chennai Metro & MRTS trains — all in one dashboard.
-        </p>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '28px' }}>
-          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4ade80', boxShadow: '0 0 10px #4ade80', animation: 'pulse 1.5s infinite' }} />
-          <span style={{ color: '#4ade80', fontSize: '13px', fontWeight: '700' }}>LIVE</span>
-          <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: '12px' }}>Updated {lastUpdated.toLocaleTimeString()}</span>
+        <div style={{ marginBottom: '40px' }}>
+          <p style={{ fontSize: '11px', letterSpacing: '3px', color: '#2563eb', fontWeight: '700', marginBottom: '10px' }}>MODULE 05</p>
+          <h1 style={{ fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: '900', color: 'var(--text)', marginBottom: '12px' }}>LiveTransit Hub</h1>
+          <p style={{ color: 'var(--text3)', fontSize: '15px', lineHeight: '1.7' }}>Real-time tracking for MTC buses, Chennai Metro & MRTS trains — all in one dashboard.</p>
         </div>
 
-        <div style={{ display: 'flex', gap: '8px', marginBottom: '28px' }}>
+        {/* Live */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
+          <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#16a34a', animation: 'pulse 1.5s infinite' }} />
+          <span style={{ color: '#16a34a', fontSize: '12px', fontWeight: '700' }}>LIVE</span>
+          <span style={{ color: 'var(--text3)', fontSize: '12px' }}>· Updated {lastUpdated.toLocaleTimeString()}</span>
+        </div>
+
+        {/* Tabs */}
+        <div style={{ display: 'flex', gap: '6px', marginBottom: '20px', borderBottom: '1px solid var(--border)', paddingBottom: '0' }}>
           {tabs.map(tab => (
-            <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{ padding: '10px 20px', background: activeTab === tab.id ? tab.color : 'rgba(255,255,255,0.04)', border: `1px solid ${activeTab === tab.id ? tab.color : 'rgba(255,255,255,0.08)'}`, borderRadius: '20px', color: activeTab === tab.id ? '#020a06' : 'rgba(255,255,255,0.5)', fontWeight: '700', fontSize: '13px', cursor: 'pointer', boxShadow: activeTab === tab.id ? `0 0 20px ${tab.color}40` : 'none', transition: 'all 0.25s ease' }}>{tab.label}</button>
+            <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{ padding: '10px 20px', background: 'transparent', border: 'none', borderBottom: `2px solid ${activeTab === tab.id ? tab.color : 'transparent'}`, color: activeTab === tab.id ? tab.color : 'var(--text3)', fontWeight: activeTab === tab.id ? '700' : '500', fontSize: '13px', cursor: 'pointer', transition: 'all 0.15s ease', marginBottom: '-1px' }}>{tab.label}</button>
           ))}
         </div>
 
+        {/* Bus */}
         {activeTab === 'bus' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {buses.map((bus, i) => (
-              <div key={i} style={{ padding: '20px 24px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(96,165,250,0.1)', borderRadius: '18px' }}>
+              <div key={i} style={{ padding: '18px 20px', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '10px', boxShadow: 'var(--shadow)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
                   <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-                      <span style={{ padding: '3px 10px', background: 'rgba(96,165,250,0.15)', border: '1px solid rgba(96,165,250,0.3)', borderRadius: '6px', fontSize: '13px', fontWeight: '700', color: '#60a5fa' }}>{bus.id}</span>
-                      <span style={{ fontSize: '12px', fontWeight: '700', color: bus.status === 'On Time' ? '#4ade80' : '#fbbf24' }}>{bus.status}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                      <span style={{ padding: '2px 8px', background: dark ? 'rgba(37,99,235,0.15)' : '#eff6ff', border: '1px solid rgba(37,99,235,0.2)', borderRadius: '4px', fontSize: '12px', fontWeight: '700', color: '#2563eb' }}>{bus.id}</span>
+                      <span style={{ fontSize: '11px', fontWeight: '700', color: bus.status === 'On Time' ? '#16a34a' : '#d97706' }}>{bus.status}</span>
                     </div>
-                    <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px' }}>{bus.route}</p>
+                    <p style={{ color: 'var(--text3)', fontSize: '13px' }}>{bus.route}</p>
                   </div>
-                  <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
                     <div style={{ textAlign: 'center' }}>
-                      <div style={{ fontSize: '30px', fontWeight: '900', color: '#60a5fa', transition: 'all 0.5s ease' }}>{bus.eta}</div>
-                      <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)' }}>min away</div>
+                      <div style={{ fontSize: '26px', fontWeight: '900', color: '#2563eb' }}>{bus.eta}</div>
+                      <div style={{ fontSize: '10px', color: 'var(--text3)' }}>min away</div>
                     </div>
-                    <div style={{ minWidth: '80px' }}>
-                      <div style={{ fontSize: '14px', fontWeight: '700', marginBottom: '6px', textAlign: 'center' }}>{bus.occupancy}%</div>
-                      <div style={{ height: '5px', background: 'rgba(255,255,255,0.08)', borderRadius: '3px' }}>
-                        <div style={{ height: '100%', width: `${bus.occupancy}%`, background: bus.occupancy > 80 ? '#f87171' : bus.occupancy > 50 ? '#fbbf24' : '#4ade80', borderRadius: '3px', transition: 'width 0.5s ease' }} />
+                    <div style={{ minWidth: '72px' }}>
+                      <div style={{ fontSize: '13px', fontWeight: '700', color: 'var(--text)', marginBottom: '5px', textAlign: 'center' }}>{bus.occupancy}%</div>
+                      <div style={{ height: '4px', background: 'var(--bg3)', borderRadius: '2px' }}>
+                        <div style={{ height: '100%', width: `${bus.occupancy}%`, background: bus.occupancy > 80 ? '#dc2626' : bus.occupancy > 50 ? '#d97706' : '#16a34a', borderRadius: '2px', transition: 'width 0.5s ease' }} />
                       </div>
-                      <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.25)', textAlign: 'center', marginTop: '4px' }}>occupancy</div>
                     </div>
                   </div>
                 </div>
@@ -96,35 +96,37 @@ function LiveTransit() {
           </div>
         )}
 
+        {/* Metro */}
         {activeTab === 'metro' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {metroLines.map((line, i) => (
-              <div key={i} style={{ padding: '28px', background: 'rgba(255,255,255,0.02)', border: `1px solid ${line.color}20`, borderRadius: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+              <div key={i} style={{ padding: '22px', background: 'var(--surface)', border: '1px solid var(--border)', borderLeft: `3px solid ${line.color}`, borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '14px', boxShadow: 'var(--shadow)' }}>
                 <div>
-                  <div style={{ display: 'inline-block', padding: '3px 12px', background: `${line.color}20`, border: `1px solid ${line.color}50`, borderRadius: '6px', fontSize: '12px', fontWeight: '700', color: line.color, marginBottom: '10px' }}>{line.line}</div>
-                  <p style={{ fontSize: '16px', fontWeight: '700' }}>{line.from} → {line.to}</p>
-                </div>
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: '38px', fontWeight: '900', color: line.color }}>{line.nextTrain} min</div>
-                  <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.3)' }}>Next train</div>
-                  <div style={{ marginTop: '6px', fontSize: '12px', fontWeight: '700', color: line.crowding === 'Low' ? '#4ade80' : '#f87171' }}>Crowding: {line.crowding}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {activeTab === 'train' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {trains.map((train, i) => (
-              <div key={i} style={{ padding: '24px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(192,132,252,0.12)', borderRadius: '18px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
-                <div>
-                  <p style={{ fontWeight: '700', marginBottom: '6px' }}>{train.name}</p>
-                  <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '13px' }}>Platform {train.platform}</p>
+                  <div style={{ fontSize: '11px', fontWeight: '700', color: line.color, marginBottom: '6px', letterSpacing: '1px' }}>{line.line}</div>
+                  <p style={{ fontSize: '15px', fontWeight: '700', color: 'var(--text)' }}>{line.from} → {line.to}</p>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: '24px', fontWeight: '900' }}>{train.departure}</div>
-                  <div style={{ fontSize: '12px', fontWeight: '700', color: train.status === 'On Time' ? '#4ade80' : '#fbbf24' }}>{train.status}</div>
+                  <div style={{ fontSize: '32px', fontWeight: '900', color: line.color }}>{line.nextTrain} min</div>
+                  <div style={{ fontSize: '11px', color: 'var(--text3)' }}>Next train</div>
+                  <div style={{ fontSize: '11px', fontWeight: '700', color: line.crowding === 'Low' ? '#16a34a' : '#dc2626', marginTop: '3px' }}>Crowding: {line.crowding}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Train */}
+        {activeTab === 'train' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            {trains.map((train, i) => (
+              <div key={i} style={{ padding: '20px', background: 'var(--surface)', border: '1px solid var(--border)', borderLeft: '3px solid #7c3aed', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', boxShadow: 'var(--shadow)' }}>
+                <div>
+                  <p style={{ fontWeight: '700', color: 'var(--text)', marginBottom: '5px' }}>{train.name}</p>
+                  <p style={{ color: 'var(--text3)', fontSize: '13px' }}>Platform {train.platform}</p>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                  <div style={{ fontSize: '22px', fontWeight: '900', color: 'var(--text)' }}>{train.departure}</div>
+                  <div style={{ fontSize: '12px', fontWeight: '700', color: train.status === 'On Time' ? '#16a34a' : '#d97706' }}>{train.status}</div>
                 </div>
               </div>
             ))}

@@ -18,109 +18,116 @@ const disputes = [
 
 const maxEarning = Math.max(...earnings.map(e => e.amount));
 
-function DriverPulse() {
+function DriverPulse({ theme }) {
   const [newDispute, setNewDispute] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const dark = theme === 'dark';
   const totalWeek = earnings.reduce((sum, e) => sum + e.amount, 0);
   const totalTrips = earnings.reduce((sum, e) => sum + e.trips, 0);
 
-  return (
-    <div style={{ minHeight: '100vh', background: '#020a06', paddingTop: '100px' }}>
-      <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none' }}>
-        <div style={{ position: 'absolute', width: '450px', height: '450px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(192,132,252,0.08) 0%, transparent 70%)', top: '10%', right: '5%', animation: 'flow 9s ease-in-out infinite', filter: 'blur(50px)' }} />
-      </div>
+  const statusColor = (s) => s === 'Resolved' ? '#16a34a' : s === 'Pending' ? '#d97706' : '#2563eb';
+  const statusBg = (s) => dark
+    ? s === 'Resolved' ? 'rgba(22,163,74,0.12)' : s === 'Pending' ? 'rgba(217,119,6,0.12)' : 'rgba(37,99,235,0.12)'
+    : s === 'Resolved' ? '#f0fdf4' : s === 'Pending' ? '#fffbeb' : '#eff6ff';
 
-      <div style={{ maxWidth: '860px', margin: '0 auto', padding: '40px 24px', position: 'relative', zIndex: 1 }}>
-        <p style={{ color: '#c084fc', letterSpacing: '4px', fontSize: '11px', marginBottom: '12px' }}>MODULE 06</p>
-        <h1 style={{ fontSize: 'clamp(36px, 6vw, 60px)', fontWeight: '900', marginBottom: '16px', background: 'linear-gradient(135deg, #fff, #c084fc)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>DriverPulse</h1>
-        <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '16px', lineHeight: '1.7', marginBottom: '48px' }}>
-          Full earnings transparency for Chennai auto & cab drivers — disputes, daily summary & incentives.
-        </p>
+  return (
+    <div style={{ minHeight: '100vh', background: 'var(--bg)', paddingTop: '80px' }}>
+      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '40px 24px' }}>
+
+        <div style={{ marginBottom: '40px' }}>
+          <p style={{ fontSize: '11px', letterSpacing: '3px', color: '#7c3aed', fontWeight: '700', marginBottom: '10px' }}>MODULE 06</p>
+          <h1 style={{ fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: '900', color: 'var(--text)', marginBottom: '12px' }}>DriverPulse</h1>
+          <p style={{ color: 'var(--text3)', fontSize: '15px', lineHeight: '1.7' }}>Full earnings transparency for Chennai auto & cab drivers — disputes, summary & incentives.</p>
+        </div>
 
         {/* Driver Profile */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '20px 24px', background: 'rgba(192,132,252,0.06)', border: '1px solid rgba(192,132,252,0.2)', borderRadius: '18px', marginBottom: '32px' }}>
-          <div style={{ width: '52px', height: '52px', borderRadius: '50%', background: 'linear-gradient(135deg, #c084fc, #9333ea)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px', fontWeight: '900', color: '#fff', flexShrink: 0 }}>R</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '18px 20px', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '12px', marginBottom: '24px', boxShadow: 'var(--shadow)' }}>
+          <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'linear-gradient(135deg, #7c3aed, #6d28d9)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: '900', color: '#fff', flexShrink: 0 }}>R</div>
           <div>
-            <p style={{ fontWeight: '800', fontSize: '16px' }}>Rajan Kumar</p>
-            <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '13px' }}>Auto Driver · Chennai · ID: CHN-4821</p>
+            <p style={{ fontWeight: '800', fontSize: '15px', color: 'var(--text)' }}>Rajan Kumar</p>
+            <p style={{ color: 'var(--text3)', fontSize: '12px' }}>Auto Driver · Chennai · ID: CHN-4821</p>
           </div>
           <div style={{ marginLeft: 'auto', textAlign: 'right' }}>
-            <div style={{ fontSize: '20px', fontWeight: '900', color: '#fbbf24' }}>4.8 ⭐</div>
-            <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.3)' }}>Rating</div>
+            <div style={{ fontSize: '18px', fontWeight: '900', color: '#d97706' }}>4.8 ⭐</div>
+            <div style={{ fontSize: '11px', color: 'var(--text3)' }}>Rating</div>
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px', marginBottom: '40px' }}>
+        {/* Stats */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))', gap: '12px', marginBottom: '28px' }}>
           {[
-            { label: 'This Week', value: `₹${totalWeek.toLocaleString()}`, color: '#c084fc' },
-            { label: 'Total Trips', value: totalTrips, color: '#60a5fa' },
-            { label: 'Avg per Trip', value: `₹${Math.round(totalWeek / totalTrips)}`, color: '#4ade80' },
-            { label: 'Today', value: '₹640', color: '#fbbf24' },
+            { label: 'This Week', value: `₹${totalWeek.toLocaleString()}`, color: '#7c3aed' },
+            { label: 'Total Trips', value: totalTrips, color: '#2563eb' },
+            { label: 'Avg per Trip', value: `₹${Math.round(totalWeek / totalTrips)}`, color: '#16a34a' },
+            { label: 'Today', value: '₹640', color: '#d97706' },
           ].map((card, i) => (
-            <div key={i} style={{ padding: '28px', background: 'rgba(255,255,255,0.02)', border: `1px solid ${card.color}20`, borderRadius: '20px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: `linear-gradient(90deg, transparent, ${card.color}, transparent)` }} />
-              <div style={{ fontSize: '34px', fontWeight: '900', color: card.color, marginBottom: '6px', textShadow: `0 0 20px ${card.color}40` }}>{card.value}</div>
-              <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.35)' }}>{card.label}</div>
+            <div key={i} style={{ padding: '20px', background: 'var(--surface)', border: '1px solid var(--border)', borderTop: `3px solid ${card.color}`, borderRadius: '10px', textAlign: 'center', boxShadow: 'var(--shadow)' }}>
+              <div style={{ fontSize: '28px', fontWeight: '900', color: card.color, marginBottom: '4px' }}>{card.value}</div>
+              <div style={{ fontSize: '12px', color: 'var(--text3)' }}>{card.label}</div>
             </div>
           ))}
         </div>
 
-        <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(192,132,252,0.12)', borderRadius: '24px', padding: '28px', marginBottom: '32px' }}>
-          <h2 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '28px' }}>Weekly Earnings</h2>
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'flex-end', height: '160px' }}>
+        {/* Chart */}
+        <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '12px', padding: '24px', marginBottom: '24px', boxShadow: 'var(--shadow)' }}>
+          <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', marginBottom: '24px' }}>Weekly Earnings</h2>
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-end', height: '140px' }}>
             {earnings.map((e, i) => (
-              <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', height: '100%', justifyContent: 'flex-end' }}>
-                <span style={{ fontSize: '10px', color: '#c084fc', fontWeight: '700' }}>₹{e.amount}</span>
-                <div style={{ width: '100%', height: `${(e.amount / maxEarning) * 120}px`, background: 'linear-gradient(to top, #c084fc, rgba(192,132,252,0.3))', borderRadius: '6px 6px 0 0', transition: 'height 0.5s ease', boxShadow: '0 0 10px rgba(192,132,252,0.2)' }} />
-                <span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)' }}>{e.day}</span>
+              <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', height: '100%', justifyContent: 'flex-end' }}>
+                <span style={{ fontSize: '9px', color: '#7c3aed', fontWeight: '700' }}>₹{e.amount}</span>
+                <div style={{ width: '100%', height: `${(e.amount / maxEarning) * 110}px`, background: dark ? 'linear-gradient(to top, #7c3aed, rgba(124,58,237,0.3))' : 'linear-gradient(to top, #7c3aed, #c4b5fd)', borderRadius: '4px 4px 0 0', transition: 'height 0.5s ease' }} />
+                <span style={{ fontSize: '10px', color: 'var(--text3)' }}>{e.day}</span>
               </div>
             ))}
           </div>
         </div>
 
-        <h2 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '16px' }}>Dispute Board</h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px' }}>
+        {/* Disputes */}
+        <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', marginBottom: '14px' }}>Dispute Board</h2>
+        <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '12px', overflow: 'hidden', marginBottom: '20px', boxShadow: 'var(--shadow)' }}>
           {disputes.map((d, i) => (
-            <div key={i} style={{ padding: '16px 20px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(192,132,252,0.08)', borderRadius: '14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
+            <div key={i} style={{ padding: '14px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', borderBottom: i < disputes.length - 1 ? '1px solid var(--border)' : 'none' }}>
               <div>
-                <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '4px' }}>
-                  <span style={{ color: '#c084fc', fontSize: '13px', fontWeight: '700' }}>{d.id}</span>
-                  <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: '12px' }}>{d.date}</span>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '3px' }}>
+                  <span style={{ color: '#7c3aed', fontSize: '12px', fontWeight: '700' }}>{d.id}</span>
+                  <span style={{ color: 'var(--text3)', fontSize: '11px' }}>{d.date}</span>
                 </div>
-                <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)' }}>{d.issue}</p>
+                <p style={{ fontSize: '13px', color: 'var(--text2)' }}>{d.issue}</p>
               </div>
-              <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                <span style={{ fontWeight: '700', color: '#4ade80' }}>{d.amount}</span>
-                <span style={{ padding: '4px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: '700', background: d.status === 'Resolved' ? 'rgba(74,222,128,0.12)' : d.status === 'Pending' ? 'rgba(251,191,36,0.12)' : 'rgba(96,165,250,0.12)', color: d.status === 'Resolved' ? '#4ade80' : d.status === 'Pending' ? '#fbbf24' : '#60a5fa' }}>{d.status}</span>
+              <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexShrink: 0 }}>
+                <span style={{ fontWeight: '700', color: '#16a34a', fontSize: '13px' }}>{d.amount}</span>
+                <span style={{ padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: '700', background: statusBg(d.status), color: statusColor(d.status) }}>{d.status}</span>
               </div>
             </div>
           ))}
         </div>
 
-        <div style={{ padding: '24px', background: 'rgba(192,132,252,0.04)', border: '1px solid rgba(192,132,252,0.15)', borderRadius: '20px', marginBottom: '32px' }}>
-          <p style={{ fontSize: '15px', fontWeight: '700', marginBottom: '14px' }}>File New Dispute</p>
-          <textarea value={newDispute} onChange={e => setNewDispute(e.target.value)} placeholder="Describe your issue — e.g. wrong fare deducted at Koyambedu..." style={{ width: '100%', padding: '14px 16px', minHeight: '80px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(192,132,252,0.15)', borderRadius: '12px', color: '#fff', fontSize: '14px', outline: 'none', resize: 'vertical', fontFamily: 'inherit' }} />
-          <button onClick={() => { if (newDispute) setSubmitted(true); }} style={{ marginTop: '12px', padding: '11px 28px', background: submitted ? 'rgba(74,222,128,0.2)' : 'rgba(192,132,252,0.15)', border: `1px solid ${submitted ? '#4ade80' : '#c084fc'}`, borderRadius: '10px', color: '#fff', fontWeight: '700', cursor: 'pointer', fontSize: '14px' }}>
+        {/* New Dispute */}
+        <div style={{ padding: '20px', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '12px', marginBottom: '24px', boxShadow: 'var(--shadow)' }}>
+          <p style={{ fontSize: '14px', fontWeight: '700', color: 'var(--text)', marginBottom: '12px' }}>File New Dispute</p>
+          <textarea value={newDispute} onChange={e => setNewDispute(e.target.value)} placeholder="Describe your issue — e.g. wrong fare deducted at Koyambedu..." style={{ width: '100%', padding: '12px 14px', minHeight: '80px', background: 'var(--bg2)', border: '1px solid var(--border)', borderRadius: '8px', color: 'var(--text)', fontSize: '13px', outline: 'none', resize: 'vertical', fontFamily: 'inherit' }} />
+          <button onClick={() => { if (newDispute) setSubmitted(true); }} style={{ marginTop: '10px', padding: '10px 24px', background: submitted ? '#16a34a' : '#7c3aed', border: 'none', borderRadius: '8px', color: '#fff', fontWeight: '700', cursor: 'pointer', fontSize: '13px' }}>
             {submitted ? '✅ Submitted to VEGA Support!' : 'Submit Dispute'}
           </button>
         </div>
 
-        <div style={{ padding: '28px', background: 'linear-gradient(135deg, rgba(192,132,252,0.08), rgba(96,165,250,0.05))', border: '1px solid rgba(192,132,252,0.2)', borderRadius: '24px' }}>
-          <h2 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '20px' }}>🏆 This Week's Incentives</h2>
+        {/* Incentives */}
+        <div style={{ padding: '24px', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '12px', boxShadow: 'var(--shadow)' }}>
+          <h2 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--text)', marginBottom: '20px' }}>🏆 This Week's Incentives</h2>
           {[
             { target: '25 trips in a day', reward: '₹200 bonus', progress: 88 },
             { target: '4.9 rating for 7 days', reward: 'Gold Driver Badge', progress: 96 },
             { target: '100 trips this week', reward: '₹500 bonus', progress: 100 },
           ].map((inc, i) => (
-            <div key={i} style={{ marginBottom: '20px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.65)' }}>{inc.target}</span>
-                <span style={{ fontSize: '13px', color: '#c084fc', fontWeight: '700' }}>{inc.reward}</span>
+            <div key={i} style={{ marginBottom: '18px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                <span style={{ fontSize: '13px', color: 'var(--text2)' }}>{inc.target}</span>
+                <span style={{ fontSize: '12px', color: '#7c3aed', fontWeight: '700' }}>{inc.reward}</span>
               </div>
-              <div style={{ height: '5px', background: 'rgba(255,255,255,0.08)', borderRadius: '3px' }}>
-                <div style={{ height: '100%', width: `${Math.min(inc.progress, 100)}%`, background: inc.progress >= 100 ? 'linear-gradient(90deg, #4ade80, #86efac)' : 'linear-gradient(90deg, #c084fc, #60a5fa)', borderRadius: '3px', boxShadow: inc.progress >= 100 ? '0 0 10px rgba(74,222,128,0.4)' : 'none' }} />
+              <div style={{ height: '4px', background: 'var(--bg3)', borderRadius: '2px' }}>
+                <div style={{ height: '100%', width: `${Math.min(inc.progress, 100)}%`, background: inc.progress >= 100 ? '#16a34a' : '#7c3aed', borderRadius: '2px' }} />
               </div>
-              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.25)', marginTop: '4px' }}>{inc.progress >= 100 ? '✅ Completed!' : `${inc.progress}% complete`}</div>
+              <div style={{ fontSize: '11px', color: 'var(--text3)', marginTop: '3px' }}>{inc.progress >= 100 ? '✅ Completed!' : `${inc.progress}% complete`}</div>
             </div>
           ))}
         </div>
