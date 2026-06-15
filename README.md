@@ -1,11 +1,11 @@
 # VEGA — Urban Mobility Super App
 > One App. Every Journey. Every Indian City.
 
-[
 
-![Live Demo](https://img.shields.io/badge/Live-Demo-1a9e7a)
 
-](https://vega-mobility-psi.vercel.app)
+[Live Demo](https://drive.google.com/file/d/1d2jiIGoJlImr3_wP5ztFluKvKom82v0F/view?usp=drivesdk)
+
+[Website link](https://vega-mobility-psi.vercel.app)
 
 ## 🏆 OneJourney Mobility Hackathon 2026
 **Team Craazco** | Track: Open Innovation
